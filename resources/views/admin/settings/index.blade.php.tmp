@@ -1,0 +1,10 @@
+@extends('admin.layouts.app')
+@section('title', 'Pengaturan Situs')
+@section('content')
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <span>Pengaturan Situs</span>
+        <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary btn-sm">
+            <i class="fas fa-arrow-left me-1"></i> Kembali ke Dashboard
+        </a>
+    </div>

@@ -1,0 +1,110 @@
+@extends('admin.layouts.app')
+
+@section('title', 'Informasi Toko')
+
+@section('content')
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <span>Informasi Toko</span>
+        <a href="{{ route('admin.settings.index') }}" class="btn btn-secondary btn-sm">
+            <i class="fas fa-arrow-left me-1"></i> Kembali
+        </a>
+    </div>
+    <div class="card-body">
+        @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
+        @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+
+        <form action="{{ route('admin.settings.store.update') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <h5 class="border-bottom pb-2">Informasi Toko di Frontend</h5>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="store_name" class="form-label">Nama Toko <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control @error('store_name') is-invalid @enderror" id="store_name" name="store_name" value="{{ old('store_name', $settings['store_name'] ?? 'Kedai Coffee') }}" required>
+                    <div class="form-text">Nama yang akan ditampilkan di navbar dan di website (mis: "Kedai Coffee").</div>
+                    @error('store_name')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="store_header_name" class="form-label">Nama Toko di Header <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control @error('store_header_name') is-invalid @enderror" id="store_header_name" name="store_header_name" value="{{ old('store_header_name', $settings['store_header_name'] ?? 'Kedai Coffee Kiosk') }}" required>
+                    <div class="form-text">Nama yang akan ditampilkan di header halaman utama (mis: "Kedai Coffee Kiosk").</div>
+                    @error('store_header_name')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="col-md-12 mb-3">
+                    <label for="store_description" class="form-label">Deskripsi Toko <span class="text-danger">*</span></label>
+                    <textarea class="form-control @error('store_description') is-invalid @enderror" id="store_description" name="store_description" rows="3" required>{{ old('store_description', $settings['store_description'] ?? 'Nikmati berbagai pilihan kopi premium dan makanan lezat. Pesan dengan mudah melalui kiosk kami.') }}</textarea>
+                    <div class="form-text">Deskripsi yang akan tampil di bawah judul pada halaman utama.</div>
+                    @error('store_description')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="store_tagline" class="form-label">Tagline <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control @error('store_tagline') is-invalid @enderror" id="store_tagline" name="store_tagline" value="{{ old('store_tagline', $settings['store_tagline'] ?? 'Sajian kopi pilihan berkualitas') }}" required>
+                    <div class="form-text">Tagline pendek yang akan ditampilkan di title browser.</div>
+                    @error('store_tagline')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="store_logo" class="form-label">Logo Toko (Optional)</label>
+                    <div class="input-group mb-2">
+                        <input type="file" class="form-control @error('store_logo') is-invalid @enderror" id="store_logo" name="store_logo" accept="image/*">
+                        <label class="input-group-text" for="store_logo"><i class="fas fa-upload"></i></label>
+                    </div>
+                    <div class="form-text">Format: JPG, PNG. Maks: 2MB. Ukuran optimal 200x80px.</div>
+                    @error('store_logo')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+
+                    @if(isset($settings['store_logo']) && !empty($settings['store_logo']))
+                    <div class="mt-2 mb-2">
+                        <img src="{{ asset($settings['store_logo']) }}" alt="Logo Toko" class="img-thumbnail" style="height: 80px;">
+                        <div class="form-check mt-2">
+                            <input class="form-check-input" type="checkbox" id="remove_logo" name="remove_logo" value="1">
+                            <label class="form-check-label" for="remove_logo">
+                                Hapus logo saat ini
+                            </label>
+                        </div>
+                    </div>
+                    @endif
+                </div>
+            </div>
+
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i> Pengaturan ini akan mengubah tampilan nama dan deskripsi di halaman frontend website.
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save me-1"></i> Simpan Pengaturan
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+@endsection

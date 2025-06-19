@@ -1,0 +1,18 @@
+Untuk menggunakan PWA dengan benar, Anda perlu menambahkan ikon-ikon di folder ini.
+
+Buat ikon dengan ukuran berikut:
+- icon-72x72.png
+- icon-96x96.png
+- icon-128x128.png
+- icon-144x144.png
+- icon-152x152.png
+- icon-192x192.png
+- icon-384x384.png
+- icon-512x512.png
+
+Anda dapat membuat ikon dari logo Kedai Coffee Kiosk menggunakan layanan online seperti:
+1. https://app.iconify.design/
+2. https://www.pwabuilder.com/imageGenerator
+3. https://www.favicon-generator.org/
+
+Pastikan ikon memiliki latar belakang dan warna yang konsisten untuk pengalaman pengguna yang baik.
